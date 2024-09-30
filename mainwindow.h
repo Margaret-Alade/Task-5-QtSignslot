@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include "stopwatch.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -26,10 +27,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    short int seconds;
-    int counter = 0;
-    int previous_seconds_value = 0;
-    bool paused;
-    QTimer *stopwatch;
+    Stopwatch *stopwatch;
+    QTimer *timer;
 };
 #endif // MAINWINDOW_H
