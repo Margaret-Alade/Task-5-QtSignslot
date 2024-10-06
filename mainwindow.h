@@ -20,14 +20,15 @@ public:
     ~MainWindow();
 
 private slots:
-    void pb_startstop_clicked(bool checked = false);
-    void pb_clear_clicked(bool checked = false);
-    void pb_circle_clicked(bool checked = false);
-    void process();
+    void onStartStopButtonClicked();
+    void onResetButtonClicked();
+    void onLapButtonClicked();
+    void updateTimerDisplay(double time);
 
 private:
     Ui::MainWindow *ui;
     Stopwatch *stopwatch;
-    QTimer *timer;
+    int lapCount;
+    double lastLapTime;
 };
 #endif // MAINWINDOW_H

@@ -18,28 +18,15 @@
     <item row="0" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QLCDNumber" name="minutes">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-          <horstretch>50</horstretch>
-          <verstretch>50</verstretch>
-         </sizepolicy>
+       <widget class="QLabel" name="timelabel">
+        <property name="font">
+         <font>
+          <family>Arial Black</family>
+          <pointsize>48</pointsize>
+         </font>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLCDNumber" name="seconds">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>50</horstretch>
-          <verstretch>50</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::Shape::Box</enum>
-        </property>
-        <property name="digitCount">
-         <number>5</number>
+        <property name="text">
+         <string>00.000 с</string>
         </property>
        </widget>
       </item>

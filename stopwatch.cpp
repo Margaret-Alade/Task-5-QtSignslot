@@ -1,100 +1,38 @@
 #include "stopwatch.h"
-void Stopwatch::watch_start() {
-  paused = true;
-}
-void Stopwatch::watch_stop() {
-    paused = false;
-}
 
-void Stopwatch::watch_clear() {
-    seconds = 0;
-    seconds_on_diplay = 0;
-    minutes = 0;
-    counter = 0;
-    previous_seconds_value = 0;
-    paused = false;
+Stopwatch::Stopwatch(QObject *parent) : QObject(parent), elapsedTime(0.0) {
+    timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &Stopwatch::updateTime);
 }
 
-
-
-bool Stopwatch::get_paused() {
-    return paused;
+void Stopwatch::start() {
+    if (!timer->isActive()) {
+        timer->start(100); // Обновление каждую 0.1 секунды
+    }
 }
 
-
-
-
-
-
-short int Stopwatch::get_seconds() {
-    return seconds;
+void Stopwatch::stop() {
+    if (timer->isActive()) {
+        timer->stop();
+    }
 }
 
-short int Stopwatch::get_seconds_on_display() {
-    return seconds_on_diplay;
-}
-void Stopwatch::set_seconds_on_display(short int value) {
-    seconds_on_diplay = value;
-}
-
-short int Stopwatch::increase_seconds() {
-    seconds += 1;
-    return seconds;
+void Stopwatch::reset() {
+    stop();
+    elapsedTime = 0.0;
+    emit timeUpdated(elapsedTime);
 }
 
-short int Stopwatch::increase_seconds_on_display() {
-    seconds_on_diplay += 1;
-    return seconds_on_diplay;
-
-
-
-
-
-
-}
-short int Stopwatch::increase_minutes() {
-    minutes += 1;
-    return minutes;
+bool Stopwatch::isRunning() const {
+    return timer->isActive();
 }
 
-short int Stopwatch::get_minutes() {
-    return minutes;
+double Stopwatch::elapsedMilliseconds() const {
+    return elapsedTime;
 }
 
-void Stopwatch::set_minutes(short int value) {
-    minutes = value;
+void Stopwatch::updateTime() {
+    elapsedTime += 100; // Увеличиваем время на 100 миллисекунд
+    emit timeUpdated(elapsedTime);
 }
 
-
-
-
-
-
-short int Stopwatch::increase_counter() {
-    counter += 1;
-    return counter;
-}
-
-int Stopwatch::get_counter() {
-    return counter;
-}
-
-
-
-
-
-void Stopwatch::set_previous_second_value(short int value) {
-    previous_seconds_value = value;
-}
-
-short int Stopwatch::get_previous_seconds_value() {
-    return previous_seconds_value;
-}
-
-void Stopwatch::set_previous_minutes_value(short int value) {
-    previous_minutes_value = value;
-}
-
-short int Stopwatch::get_previous_minutes_value() {
-    return previous_minutes_value;
-}
