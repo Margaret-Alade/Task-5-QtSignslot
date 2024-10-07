@@ -14,6 +14,7 @@ public:
     void start();
     void stop();
     void reset();
+    QString lap();
     bool isRunning() const;
     double elapsedMilliseconds() const;
 
@@ -26,6 +27,8 @@ private slots:
 private:
     QTimer *timer;
     double elapsedTime;
+    int lapCount;
+    double lastLapTime;
 };
 
 #endif // STOPWATCH_H

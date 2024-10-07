@@ -28,7 +28,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Stopwatch *stopwatch;
-    int lapCount;
-    double lastLapTime;
+    // int lapCount;
+    // double lastLapTime;
 };
 #endif // MAINWINDOW_H

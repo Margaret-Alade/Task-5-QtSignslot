@@ -1,6 +1,6 @@
 #include "stopwatch.h"
 
-Stopwatch::Stopwatch(QObject *parent) : QObject(parent), elapsedTime(0.0) {
+Stopwatch::Stopwatch(QObject *parent) : QObject(parent), elapsedTime(0.0),lapCount(0),lastLapTime(0.0) {
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Stopwatch::updateTime);
 }
@@ -18,10 +18,22 @@ void Stopwatch::stop() {
 }
 
 void Stopwatch::reset() {
-    stop();
     elapsedTime = 0.0;
+    lapCount = 0;
+    lastLapTime = 0.0;
     emit timeUpdated(elapsedTime);
 }
+
+QString Stopwatch::lap() {
+    double elapsed = elapsedMilliseconds();
+    double laptime = elapsed - lastLapTime;
+    lastLapTime = elapsed;
+    lapCount++;
+    return QString("Круг %1, время: %2 секунд")
+                                  .arg(lapCount)
+                                   .arg(laptime / 1000);
+}
+
 
 bool Stopwatch::isRunning() const {
     return timer->isActive();

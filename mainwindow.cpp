@@ -2,7 +2,7 @@
 #include "./ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow), stopwatch(new Stopwatch(this)), lapCount(0), lastLapTime(0.0) {
+    : QMainWindow(parent), ui(new Ui::MainWindow), stopwatch(new Stopwatch(this)){
     ui->setupUi(this);
 
     connect(ui->pb_startstop, &QPushButton::clicked, this, &MainWindow::onStartStopButtonClicked);
@@ -31,21 +31,11 @@ void MainWindow::onStartStopButtonClicked() {
 void MainWindow::onResetButtonClicked() {
     stopwatch->reset();
     ui->timelabel->setText("00.000 с");
-    ui->pb_startstop->setText("Старт");
-    ui->pb_circle->setEnabled(false); // Деактивируем кнопку Круг
     ui->textBrowser->clear();
-    lapCount = 0;
-    lastLapTime = 0.0;
 }
 
 void MainWindow::onLapButtonClicked() {
-    double elapsed = stopwatch->elapsedMilliseconds();
-    double laptime = elapsed - lastLapTime;
-    lastLapTime = elapsed;
-    lapCount++;
-    ui->textBrowser->append(QString("Круг %1, время: %2 секунд")
-                                   .arg(lapCount)
-                                   .arg(laptime / 1000));
+    ui->textBrowser->append(stopwatch->lap());
 }
 
 void MainWindow::updateTimerDisplay(double time) {
